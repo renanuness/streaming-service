@@ -3,7 +3,7 @@ package core.model.valueObject;
 import shared.exception.BusinessRuleException;
 
 public record MusicDuration(int duration) {
-    //private int inSeconds;
+
     private static final int MIN_DURATION = 1;
     private static final int MAX_DURATION = 3600;
 
@@ -21,4 +21,6 @@ public record MusicDuration(int duration) {
 
         return "%d:%d".formatted(minutes, seconds);
     }
+
+    public int toSeconds(){ return duration; }
 }

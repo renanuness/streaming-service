@@ -13,10 +13,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         "interfaces"
 })
 @EntityScan(basePackages = {
-        "infra.entity"
+        "infra.core.entity",
+        "infra.identity.entity"
 })
 @EnableJpaRepositories(basePackages = {
-        "infra.persistence"
+        "infra.core.persistence",
+        "infra.identity.persistence"
 })
 public class StreamingApplication {
     public static void main(String[] args) throws Exception {

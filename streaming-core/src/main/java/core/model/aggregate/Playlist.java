@@ -2,9 +2,7 @@ package core.model.aggregate;
 
 import core.event.*;
 import core.model.entity.Music;
-import core.model.valueObject.PlaylistId;
-import core.model.valueObject.PlaylistName;
-import core.model.valueObject.PlaylistVisibility;
+import core.model.valueObject.*;
 import shared.domain.AggregateRoot;
 import shared.exception.BusinessRuleException;
 import shared.model.valueObject.UserId;
@@ -26,7 +24,7 @@ public class Playlist extends AggregateRoot {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    Playlist(PlaylistName name, UserId ownerId) {
+    public Playlist(PlaylistName name, UserId ownerId) {
         super();
         this.id = PlaylistId.generate();
         this.name = name;
@@ -155,4 +153,31 @@ public class Playlist extends AggregateRoot {
     public UserId ownerId() { return ownerId; }
     public List<Music> musics() { return Collections.unmodifiableList(musics); }
     public PlaylistVisibility visibility() { return visibility; }
+
+    public boolean isDeleted() { return visibility == PlaylistVisibility.DELETED; }
+
+    public MusicDuration totalDuration() {
+        int duration = 0;
+        for(var music: musics){
+            duration += music.duration().duration();
+        }
+        return new MusicDuration(duration);
+    }
+
+    public void reorderMusic(MusicId musicId, int newPosition) {
+        if (newPosition < 0 || newPosition >= musics.size()) {
+            throw new BusinessRuleException("Posição inválida: " + newPosition);
+        }
+
+        Music music = musics.stream()
+                .filter(m -> m.id().equals(musicId))
+                .findFirst()
+                .orElseThrow(() -> new BusinessRuleException("Música não encontrada na playlist"));
+
+        musics.remove(music);
+        musics.add(newPosition, music);
+        this.updatedAt = LocalDateTime.now();
+
+        registerEvent(new PlaylistReorderedEvent(this.id, this.ownerId));
+    }
 }

@@ -29,11 +29,6 @@ public abstract class AggregateRoot {
         return Collections.unmodifiableList(events);
     }
 
-    public void clearEvents() {
-        this.events.clear();
-    }
-
-
     public boolean hasEvents() {
         return !events.isEmpty();
     }
@@ -52,5 +47,23 @@ public abstract class AggregateRoot {
 
     protected void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+    public List<DomainEvent> collectEvents() {
+        List<DomainEvent> pendingEvents = Collections.unmodifiableList(new ArrayList<>(events));
+        this.events.clear();
+        return pendingEvents;
+    }
+
+    public void publishEvents(DomainEventPublisher publisher) {
+        if (!events.isEmpty()) {
+            events.forEach(publisher::publish);
+            events.clear();
+        }
+    }
+
+    public int eventCount() {
+        return events.size();
     }
 }

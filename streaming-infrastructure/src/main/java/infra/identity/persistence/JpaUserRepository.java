@@ -1,6 +1,7 @@
 package infra.identity.persistence;
 
 import identity.model.aggregate.User;
+import org.springframework.beans.factory.annotation.Qualifier;
 import shared.model.valueObject.Email;
 import shared.model.valueObject.UserId;
 import identity.model.valueObject.UserStatus;
@@ -11,13 +12,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Component("identityJpaUserRepository")
 public class JpaUserRepository implements UserRepository {
 
     private final UserJpaRepository jpaRepository;
     private final UserMapper userMapper;
 
-    public JpaUserRepository(UserJpaRepository jpaRepository, UserMapper userMapper) {
+    public JpaUserRepository(UserJpaRepository jpaRepository, @Qualifier("identityUserMapper") UserMapper userMapper) {
         this.jpaRepository = jpaRepository;
         this.userMapper = userMapper;
     }

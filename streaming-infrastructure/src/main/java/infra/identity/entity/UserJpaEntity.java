@@ -7,8 +7,8 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "users")
+@Entity(name = "identity_user")
+@Table(name = "identity_users")
 @Data
 @AllArgsConstructor
 public class UserJpaEntity {

@@ -1,6 +1,7 @@
 package application.identity.service;
 
 import identity.model.aggregate.User;
+import org.springframework.beans.factory.annotation.Qualifier;
 import shared.model.valueObject.Email;
 import shared.model.valueObject.FullName;
 import identity.repository.UserRepository;
@@ -11,13 +12,13 @@ import application.identity.dto.UserResponse;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("identityUserApplicationService")
 public class UserApplicationService {
 
     private final UserRepository userRepository;
     private final UserRegistrationDomainService domainService;
 
-    public UserApplicationService(UserRepository userRepository, UserRegistrationDomainService domainService) {
+    public UserApplicationService(@Qualifier("identityJpaUserRepository") UserRepository userRepository, UserRegistrationDomainService domainService) {
         this.userRepository = userRepository;
         this.domainService = domainService;
     }

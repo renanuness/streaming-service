@@ -12,7 +12,9 @@ public interface PlaylistRepository {
     void save(Playlist playlist);
     void delete(Playlist playlist);
     Optional<Playlist> findById(PlaylistId id);
-    List<Playlist> findUserPlaylists(UserId id);
+    List<Playlist> findByOwner(UserId id);
     List<Playlist> findByName(PlaylistName name);
+    boolean existsByNameAndOwner(PlaylistName name, UserId ownerId);
+    int countByOwner(UserId ownerId);
 }
 

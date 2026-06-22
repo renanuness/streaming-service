@@ -7,7 +7,12 @@ import java.util.List;
 public class Artist {
     private ArtistId id;
     private String name;
-    private List<Genre> genres;
+
+    public Artist(ArtistId id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public ArtistId id(){ return id; }
+    public String name() { return name; }
 }

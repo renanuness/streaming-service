@@ -1,3 +1,9 @@
 package application.core.dto;
 
-public class MusicResponse {}
+public record MusicResponse(
+        String id,
+        String title,
+        String artist,
+        String duration,
+        String genre
+) {}

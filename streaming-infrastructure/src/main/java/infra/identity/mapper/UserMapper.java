@@ -6,13 +6,15 @@ import infra.identity.entity.UserJpaEntity;
 import infra.identity.entity.UserStatusEntity;
 import org.springframework.stereotype.Component;
 import shared.model.valueObject.Email;
+import shared.model.valueObject.FullName;
+import shared.model.valueObject.UserId;
 
-@Component
+@Component("identityUserMapper")
 public class UserMapper {
 
     public User toDomainUser(UserJpaEntity entity) {
-        shared.model.valueObject.UserId userId = new shared.model.valueObject.UserId(entity.getId());
-        shared.model.valueObject.FullName fullName = new shared.model.valueObject.FullName(entity.getFirstName(), entity.getLastName());
+        UserId userId = new UserId(entity.getId());
+        FullName fullName = new FullName(entity.getFirstName(), entity.getLastName());
         Email email = new Email(entity.getEmail());
         Password password = new Password(entity.getPassword());
         DateOfBirth dateOfBirth = new DateOfBirth(entity.getDateOfBirth());

@@ -8,8 +8,10 @@ import core.model.valueObject.MusicDuration;
 import core.model.valueObject.MusicId;
 import core.repository.MusicRepository;
 import org.springframework.stereotype.Component;
-import java.time.LocalDateTime;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,20 +40,17 @@ public class MockMusicRepository implements MusicRepository {
     private List<Music> createMockCatalog() {
         List<Music> catalog = new ArrayList<>();
 
-        // Artistas
         Artist artist1 = new Artist(new ArtistId("artist-1"), "Queen");
         Artist artist2 = new Artist(new ArtistId("artist-2"), "The Beatles");
         Artist artist3 = new Artist(new ArtistId("artist-3"), "Pink Floyd");
         Artist artist4 = new Artist(new ArtistId("artist-4"), "Michael Jackson");
         Artist artist5 = new Artist(new ArtistId("artist-5"), "AC/DC");
 
-        // Gêneros
         Genre rock = new Genre("Rock");
         Genre pop = new Genre("Pop");
         Genre progressive = new Genre("Progressive Rock");
         Genre hardRock = new Genre("Hard Rock");
 
-        // Queen
         catalog.add(new Music(
                 new MusicId("music-1"), "Bohemian Rhapsody", artist1, rock,
                 new MusicDuration(355)
@@ -65,7 +64,6 @@ public class MockMusicRepository implements MusicRepository {
                 new MusicDuration(122)
         ));
 
-        // The Beatles
         catalog.add(new Music(
                 new MusicId("music-4"), "Hey Jude", artist2, rock,
                 new MusicDuration(431)
@@ -79,7 +77,6 @@ public class MockMusicRepository implements MusicRepository {
                 new MusicDuration(125)
         ));
 
-        // Pink Floyd
         catalog.add(new Music(
                 new MusicId("music-7"), "Comfortably Numb", artist3, progressive,
                 new MusicDuration(383)
@@ -89,7 +86,6 @@ public class MockMusicRepository implements MusicRepository {
                 new MusicDuration(334)
         ));
 
-        // Michael Jackson
         catalog.add(new Music(
                 new MusicId("music-9"), "Billie Jean", artist4, pop,
                 new MusicDuration(294)
@@ -99,7 +95,6 @@ public class MockMusicRepository implements MusicRepository {
                 new MusicDuration(357)
         ));
 
-        // AC/DC
         catalog.add(new Music(
                 new MusicId("music-11"), "Back in Black", artist5, hardRock,
                 new MusicDuration(255)

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/identity")
+@RequestMapping("/api/identity")
 public class IdentityController {
 
     private final UserApplicationService userService;
